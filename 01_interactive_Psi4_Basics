@@ -28,7 +28,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
+   "execution_count": null,
    "metadata": {
     "collapsed": true
    },
@@ -41,12 +41,12 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "<span style='font-variant: small-caps'> Psi4 </span> is no longer takes input from a text file; instead, it is controlled directly from Python.  By default, <span style='font-variant: small-caps'> Psi4 </span> will print any output to the screen; this can be changed by giving a file name (with path if not in the current working directory) to the function [`psi4.core.set_output_file()`](http://psicode.org/psi4manual/master/psi4api.html#psi4.core.set_output_file \"Go to function documentation\"), as a string:"
+    "<span style='font-variant: small-caps'> Psi4 </span> is now able to be controlled directly from Python.  By default, <span style='font-variant: small-caps'> Psi4 </span> will print any output to the screen; this can be changed by giving a file name (with path if not in the current working directory) to the function [`psi4.core.set_output_file()`](http://psicode.org/psi4manual/master/psi4api.html#psi4.core.set_output_file \"Go to function documentation\"), as a string:"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": null,
    "metadata": {
     "collapsed": true
    },
@@ -71,22 +71,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": null,
    "metadata": {
     "collapsed": false
    },
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "-76.02663273486682"
-      ]
-     },
-     "execution_count": 7,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
+   "outputs": [],
    "source": [
     "#! Sample HF/cc-pVDZ H2O Computation\n",
     "\n",
@@ -122,22 +111,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
+   "execution_count": null,
    "metadata": {
     "collapsed": false
    },
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "-38.92533462887677"
-      ]
-     },
-     "execution_count": 10,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
+   "outputs": [],
    "source": [
     "#! Sample UHF/6-31G** CH2 Computation\n",
     "\n",
@@ -184,29 +162,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 11,
+   "execution_count": null,
    "metadata": {
     "collapsed": false
    },
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Optimizer: Optimization complete!\n"
-     ]
-    },
-    {
-     "data": {
-      "text/plain": [
-       "-76.02703272937445"
-      ]
-     },
-     "execution_count": 11,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
+   "outputs": [],
    "source": [
     "psi4.core.set_global_option('reference','rhf')\n",
     "psi4.optimize('scf/cc-pvdz', molecule=h2o)"
@@ -233,20 +193,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 13,
+   "execution_count": null,
    "metadata": {
     "collapsed": false
    },
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      " 6 displacements needed.\n",
-      " 1 2 3 4 5 6\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
     "scf_e, scf_wfn = psi4.frequencies('scf/cc-pvdz', molecule=h2o, return_wfn=True, dertype=1)"
    ]
@@ -296,7 +247,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 14,
+   "execution_count": null,
    "metadata": {
     "collapsed": true
    },
@@ -332,22 +283,11 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 15,
+   "execution_count": null,
    "metadata": {
     "collapsed": false
    },
-   "outputs": [
-    {
-     "data": {
-      "text/plain": [
-       "-0.0022355829524117405"
-      ]
-     },
-     "execution_count": 15,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
+   "outputs": [],
    "source": [
     "psi4.core.set_global_option('scf_type','df')\n",
     "psi4.core.set_global_option('freeze_core','true')\n",
@@ -371,7 +311,7 @@
     "\n",
     "To speed up the computation a little, we also tell the SAPT procedure to freeze the core electrons with `psi4.core.set_global_options('freeze_core','true')`.  The SAPT procedure is invoked with the call `psi4.energy('sapt0/jun-cc-pvdz', molecule=dimer)`.  This call knows to automatically run two monomer computations and a dimer computation and then use these results to perform the SAPT analysis.  The various energy components are printed at the end of the output, in addition to the total SAPT0 interaction energy.  An explanation of the various energy components can be found in the review by Jeziorski, Moszynski, and Szalewicz [Jeziorski:1994:1887](http://psicode.org/psi4manual/master/bibliography.html#jeziorski-1994-1887 \"Go to References\"), and this is discussed in more detail in the [SAPT section](http://psicode.org/psi4manual/master/sapt.html \"Go to Manual\") of the <span style='font-variant: small-caps'> Psi4 </span> manual.  \n",
     "\n",
-    "For now, we'll note that most of the SAPT energy components are negative; this mens those are attractive contributions (the zero of energy in a SAPT computation is defined as non-interacting monomers). The exchange contributions are positive (repulsive). In this example, the most attractive contribution between ethylene and acetylene is an electrostatic term of $-2.12$ kcal mol$^{-1}$ (`Elst10,r` where the 1 indicates the first-order perturbation theory result with respect to the intermolecular interaction, and the 0 indicates zeroth-order with respect to the intramolecular electron correlation).  The next most attractive contribution is the `Disp20` term (second order intermolecular dispersion, which looks like and MP2 in which one excitation is placed on each monomer), contributing an attraction of $-1.21$ kcal mol$^{-1}$.  It is not surprising that the electrostatic contribution is dominant, because the geometry chosen for this example has the acetylene perpendicular to the ethylene, with the acetylene hydrogen pointing directly at the double bond in ethylene; this will be attractive because the H atoms in acetylene bear a partial positive charge, while the electron rich double bond in ethylene bears a partial negative charge.  At the same time, the dispersion interaction should be smaller because the perpendicular geometry does not allow much overlap between the monomers.  Hence, the SAPT analysis helps clarify (and quantify) our physical understanding about the interaction between the two monomers."
+    "For now, we'll note that most of the SAPT energy components are negative; this mens those are attractive contributions (the zero of energy in a SAPT computation is defined as non-interacting monomers). The exchange contributions are positive (repulsive). In this example, the most attractive contribution between ethylene and acetylene is an electrostatic term of $-2.12$ kcal/mol (`Elst10,r` where the 1 indicates the first-order perturbation theory result with respect to the intermolecular interaction, and the 0 indicates zeroth-order with respect to the intramolecular electron correlation).  The next most attractive contribution is the `Disp20` term (second order intermolecular dispersion, which looks like and MP2 in which one excitation is placed on each monomer), contributing an attraction of $-1.21$ kcal/mol.  It is not surprising that the electrostatic contribution is dominant, because the geometry chosen for this example has the acetylene perpendicular to the ethylene, with the acetylene hydrogen pointing directly at the double bond in ethylene; this will be attractive because the H atoms in acetylene bear a partial positive charge, while the electron rich double bond in ethylene bears a partial negative charge.  At the same time, the dispersion interaction should be smaller because the perpendicular geometry does not allow much overlap between the monomers.  Hence, the SAPT analysis helps clarify (and quantify) our physical understanding about the interaction between the two monomers."
    ]
   },
   {
@@ -384,49 +324,16 @@
     "\n",
     "Suppose you want to do a limited potential energy surface scan, such as computing the interaction energy between two neon atoms at various interatomic distances.  One simple but unappealing way to do this is to generate separate geometries for each distance to be studied.  Instead, we can leverage Python loops and string formatting to make our lives simpler.  Additionally, let's suppose you want to do counterpoise (CP) correction to compute interaction energies.  Counterpoise correction involves computing the dimer energy and then subtracting out the energies of the two monomers, each evaluated in the dimer basis.  Again, each of these computations could be run in a separate input file, but because counterpoise correction is a fairly standard procedure for intermolecular interactions, <span style='font-variant: small-caps'> Psi4 </span> knows about it and has a built-in routine to perform counterpoise correction.  It only needs to know what method you want to do the couterpoise correction on (here, let's consider CCSD(T)), and it needs to know what's monomer A and what's monomer B.  This last issue of specifying the monomers separately was already dealt with in the previous SAPT example, where we saw that two dashes in the `psi4.geometry()` string can be used to separate monomers.\n",
     "\n",
-    "So, we're going to do counterpoise-corrected CCSD(T) energies for Ne$_2$ at a series of different interatomic distances.  And let's print out a table of the interatomic distances we've considered,  and the CP-corrected CCSD(T) interaction energies (in kcal mol$^{-1}$) at each geometry:"
+    "So, we're going to do counterpoise-corrected CCSD(T) energies for Ne$_2$ at a series of different interatomic distances.  And let's print out a table of the interatomic distances we've considered,  and the CP-corrected CCSD(T) interaction energies (in kcal/mol) at each geometry:"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 28,
+   "execution_count": null,
    "metadata": {
     "collapsed": false
    },
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "\n",
-      "   ==> N-Body: Now computing 1-body complexes <==\n",
-      "\n",
-      "\n",
-      "   ==> N-Body: Now computing 2-body complexes <==\n",
-      "\n",
-      "\n",
-      "   ==> N-Body: Now computing 1-body complexes <==\n",
-      "\n",
-      "\n",
-      "   ==> N-Body: Now computing 2-body complexes <==\n",
-      "\n",
-      "\n",
-      "   ==> N-Body: Now computing 1-body complexes <==\n",
-      "\n",
-      "\n",
-      "   ==> N-Body: Now computing 2-body complexes <==\n",
-      "\n",
-      "CP-corrected CCSD(T)/aug-cc-pVDZ Interaction Energies\n",
-      "\n",
-      "\n",
-      "          R [Ang]                 E_int [kcal/mol]       \n",
-      "---------------------------------------------------------\n",
-      "            2.5                        0.074822\n",
-      "            3.0                        0.000524\n",
-      "            4.0                        -0.000010\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
     "#! Example potential energy surface scan and CP-correction for Ne2\n",
     "\n",
@@ -447,7 +354,7 @@
     "\n",
     "for R in Rvals:\n",
     "    ne2 = psi4.geometry(ne2_geometry.format(R))\n",
-    "    ecp[R] = psi4.energy('ccsd(t)/aug-cc-pvdz, bsse_type='cp', molecule=ne2)\n",
+    "    ecp[R] = psi4.energy('ccsd(t)/aug-cc-pvdz', bsse_type='cp', molecule=ne2)\n",
     "\n",
     "# Prints to screen\n",
     "print(\"CP-corrected CCSD(T)/aug-cc-pVDZ Interaction Energies\\n\\n\")\n",
